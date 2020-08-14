@@ -14,11 +14,14 @@ float final1Out=1500,final2Out=1500,final3Out=1000,final4Out=1500;
 #include <Wire.h>
 #include <MechaQMC5883.h>
 int x,y,z,azimuth,compass_initial,compass_current;
-int p_mag=-5,yaw_change=0;
+int p_mag=5,yaw_change=0;     //direction control works pretty well with just P controller
 MechaQMC5883 qmc;
 
 //for GPS 
 #include "TinyGPS++.h"
 TinyGPSPlus gps;//This is the GPS object that will pretty much do all the grunt work with the NMEA data
-float initial_lat=0,initial_lng=0,current_lat=0,current_lng=0;
-float p_lat=1,p_lng=1,Ail_change=0,Ele_change=0;
+float initial_lat=0,initial_lng=0,current_lat=0,current_lng=0,previous_lat=0,previous_lng=0,actual_lat=0,actual_lng=0;
+
+float p_lat=8*1000000,p_lng=-8*1000000,d_lat=00000,d_lng=0000;      //First adjust p value keeping d as 0 .....Next as oscillation starts  set d value to add drag . 
+float Ail_change=0,Ele_change=0,lat_add=0,lng_add=0;
+int stat=1,c=0,tim=1,counter=0;

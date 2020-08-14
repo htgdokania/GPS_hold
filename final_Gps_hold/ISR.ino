@@ -1,5 +1,3 @@
-
-
 ISR(PCINT1_vect){
 
   //First we take the current count value in micro seconds using the micros() function
