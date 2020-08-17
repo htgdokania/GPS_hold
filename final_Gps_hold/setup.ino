@@ -1,8 +1,8 @@
 void setup() 
 {
+  //For GPS Part
   Serial.begin(9600); //Initiially GPS starts at 9600 baud rate
   delay(250);
-
   //Disable GPGSV messages by. using the ublox protocol.
   uint8_t Disable_GPGSV[11] = {0xB5, 0x62, 0x06, 0x01, 0x03, 0x00, 0xF0, 0x03, 0x00, 0xFD, 0x15};
   Serial.write(Disable_GPGSV, 11);
@@ -17,15 +17,12 @@ void setup()
                               };
   Serial.write(Set_to_57kbps, 28);
   delay(200);
-
   Serial.begin(57600);
   delay(200);
-  
-
-
-  
   pinMode(4,OUTPUT); // indicator LED for GPS 
   digitalWrite(4,0 );
+
+
 
   //for SOftware interrupts port C
   PCICR |= (1 << PCIE1);    //enable PCMSK0 scan                                                              
@@ -37,7 +34,8 @@ void setup()
   PCICR |= (1 << PCIE0);    //enable PCMSK0 scan
   PCMSK0 |= (1 << PCINT3);  //Set pin D11 trigger an interrupt on state change.                                                                                                          
   PCMSK0 |= (1 << PCINT4);  //Set pin D12 trigger an interrupt on state change.                                               
- 
+
+ //For compass part
   Wire.begin();
   qmc.init();
 
